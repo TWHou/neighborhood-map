@@ -1,0 +1,54 @@
+Museum Mile
+===========
+
+Visual
+    Desktop
+    [ ] List on left 1/4 width
+    [ ] Search bar on top
+    [ ] Map on right
+    Mobile
+    [ ] Map on top
+    [ ] Div for search bar and list at bottom
+    [ ] List display as grid (maybe)
+
+Data
+[ ] Hard code the museums
+    [ ] placeId
+[ ] Retrieve from google
+    [ ] hours
+    [ ] photos
+    [ ] website
+[ ] Retrieve from Wikipedia
+    [ ] first p
+    [ ] url
+
+Views
+[ ] Sidebar
+    [ ] Search Bar
+    [ ] List of Museums
+[ ] InfoWindow
+    [ ] Name
+    [ ] Hours
+    [ ] More Details button
+[ ] More Details
+    [ ] Name
+    [ ] Address
+    [ ] Hours
+    [ ] Wikipedia First P
+    [ ] Wiki Link
+    [ ] Photos
+
+ViewModel
+[ ] markerList
+[ ] initMap
+    [ ] get place details
+    [ ] populate data
+    [ ] setup map
+    [ ] create markers
+[ ] museumList (observableArray)
+[ ] currentMuseum (observable)
+[ ] filterMuseums
+    [ ] filterMarkers
+[ ] populateInfoWindow
+[ ] showModal
+[ ] hideModal
