@@ -18,8 +18,14 @@ let Museum = function (data) {
     this.marker = new google.maps.Marker({
         map: map,
         title: data.name,
-        location: data.geometry.location,
-        icon: data.icon,
+        position: data.geometry.location,
+        /*icon: {
+            url: data.icon,
+            size: new google.maps.Size(35,35),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(15, 15),
+            scaledSize: new google.maps.Size(25, 25)
+        },*/
         animation: google.maps.Animation.DROP
     });
 }
@@ -35,14 +41,16 @@ let ViewModel = function() {
         }, function(place, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 self.museums.push(new Museum(place));
+            } else {
+                console.log(status);
             }
         });
     });
     this.filter = ko.observable("");
     this.filteredMuseums = ko.computed(function() {
-        let string = self.filter().toLowerCase();
-        if (!string) {
-            return self.museums;
+        let filter = self.filter().toLowerCase();
+        if (!filter) {
+            return self.museums();
         }
     });
 
@@ -55,8 +63,7 @@ let map;
 var initApp = function() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat:40.7881576, lng:-73.9635527},
-        zoom: 15,
-        mapTypeControl: false
+        zoom: 15
     });
     ko.applyBindings(new ViewModel());
 }
