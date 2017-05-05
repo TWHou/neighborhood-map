@@ -39,12 +39,13 @@
 </div>
 
 <script type="text/html" id="info-template">
-    <h3 data-bind="text: name"></h3>
-    <address data-bind="text: address"></address>
-    <button data-bind="click: $root.toggleModal">More Details</button>
+  <h3 data-bind="text: name"></h3>
+  <address data-bind="text: address"></address>
+  <button data-bind="click: $root.toggleModal">More Details</button>
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="js/app.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAyWELkBZOJwFHDXT0uv7Xatiw0becAYac&v=3&callback=initApp"></script>
 

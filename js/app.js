@@ -35,7 +35,7 @@ let ViewModel = function() {
     let infowindowLoaded = false;
     google.maps.event.addListener(self.infowindow, 'domready', function(){
         if (!infowindowLoaded) {
-            ko.applyBindings(self, document.getElementById('info-window')[0]);
+            ko.applyBindings(self, $('#info-window')[0]);
             infowindowLoaded = true;
         }
     });
