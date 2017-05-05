@@ -1,3 +1,7 @@
+.modal-open .container {
+  filter: blur(20px);
+}
+
 .container {
   height: 100vh;
   width: 100vw;
@@ -24,4 +28,34 @@ ul {
 
 li {
   margin: .75rem;
+}
+
+#modal {
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+.modal-content {
+  max-width: 500px;
+  margin: auto;
+}
+
+.close {
+  float: right;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
 }

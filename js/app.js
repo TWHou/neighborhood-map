@@ -14,7 +14,7 @@ let Museum = function (data) {
     this.placeId = data.place_id;
     this.name = data.name;
     this.address = data.formatted_address;
-    this.hours = data.opening_hours ? data.opening_hours.weekday_text : [];
+    this.hours = data.opening_hours ? data.opening_hours.weekday_text : "";
     this.visible = ko.observable(true);
     this.wikiText = "";
     this.wikiUrl = "";
@@ -50,6 +50,19 @@ let ViewModel = function() {
         }, function(place, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 let newMuseum = new Museum(place);
+                $.ajax({
+                    url: "https://en.wikipedia.org/w/api.php?",
+                    data: {
+                        "action": "opensearch",
+                        "format": "json",
+                        "search": newMuseum.name
+                    },
+                    dataType: "jsonp",
+                    success: function(result) {
+                        newMuseum.wikiText = result[2][0];
+                        newMuseum.wikiUrl = result[3][0];
+                    }
+                });
                 newMuseum.marker.addListener('click', function(){
                     self.handleClick(newMuseum);
                 });
@@ -83,7 +96,8 @@ let ViewModel = function() {
         }
     });
     this.toggleModal = function() {
-        console.log("More Details button clicked");
+        self.showModal(!self.showModal());
+        $('body').toggleClass('modal-open');
     }
     this.showModal = ko.observable(false);
 }

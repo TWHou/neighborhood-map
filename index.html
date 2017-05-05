@@ -17,25 +17,26 @@
 <div id="map"></div>
 </div>
 <div id="modal" data-bind="visible: showModal, with: currentMuseum">
-  <h2 data-bind="text: name"></h2>
-  <div data-bind="if: address">
-    <address data-bind="text: address"></address>
+  <div class="modal-content">
+    <button class="close" data-bind="click: $parent.toggleModal">&times;</button>
+    <h2 data-bind="text: name"></h2>
+    <div data-bind="if: address">
+      <address data-bind="text: address"></address>
+    </div>
+    <div data-bind="if: hours">
+      <h3>Hours:</h3>
+      <!-- ko foreach: hours -->
+      <p data-bind="text: $data"></p>
+      <!-- /ko -->
+    </div>
+    <div data-bind="if: wikiText">
+      <p data-bind="text: wikiText"></p>
+      <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Continue Reading on Wikipedia</a>
+    </div>
+    <p data-bind="ifnot: wikiText">
+      Read more about <span data-bind="text: name"></span> on <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Wikipedia</a>.
+    </p>
   </div>
-  <div data-bind="if: hours">
-    <h3>Hours:</h3>
-    <!-- ko foreach: hours -->
-    <p data-bind="text: $data"></p>
-    <!-- /ko -->
-  </div>
-  <div>
-    <p data-bind="wikiText"></p>
-    <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Continue Reading on Wikipedia</a>
-  </div>
-<!--   <div>
-    <button data-bind="click: prevImg">Prev</button>
-    <img src="" data-bind="attr: {src: currentPic}">
-    <button data-bind="click: nextImg">Next</button>
-  </div> -->
 </div>
 
 <script type="text/html" id="info-template">
