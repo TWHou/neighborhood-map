@@ -11,7 +11,7 @@
 <div id="sidebar">
   <input type="text" data-bind="textInput: filter">
   <ul data-bind="foreach: filteredMuseums">
-    <li data-bind="text: name, click: $parent.openInfo"></li>
+    <li data-bind="text: name, click: $parent.handleClick"></li>
   </ul>
 </div>
 <div id="map"></div>
@@ -31,13 +31,12 @@
     <p data-bind="wikiText"></p>
     <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Continue Reading on Wikipedia</a>
   </div>
-  <div>
+<!--   <div>
     <button data-bind="click: prevImg">Prev</button>
     <img src="" data-bind="attr: {src: currentPic}">
     <button data-bind="click: nextImg">Next</button>
-  </div>
+  </div> -->
 </div>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
 <script src="js/app.js"></script>
