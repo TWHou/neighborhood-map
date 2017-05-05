@@ -28,7 +28,17 @@ let Museum = function (data) {
 
 let ViewModel = function() {
     let self = this;
-    this.infowindow = new google.maps.InfoWindow();
+    let innerHTML = '<div id="info-window" data-bind="template: { name: \'info-template\', data: currentMuseum }"></div>';
+    this.infowindow = new google.maps.InfoWindow({
+        content: innerHTML
+    });
+    let infowindowLoaded = false;
+    google.maps.event.addListener(self.infowindow, 'domready', function(){
+        if (!infowindowLoaded) {
+            ko.applyBindings(self, document.getElementById('info-window')[0]);
+            infowindowLoaded = true;
+        }
+    });
 
     this.museums = ko.observableArray();
     this.currentMuseum = ko.observable(this.museums()[0]);
@@ -58,12 +68,6 @@ let ViewModel = function() {
     this.openInfo = function(marker, infowindow) {
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
-            let innerHTML = '<div><strong>';
-            innerHTML += self.currentMuseum().name;
-            innerHTML += '</strong><br><address>';
-            innerHTML += self.currentMuseum().address;
-            innerHTML += '</address><br><button data-bind="click: $root.toggleModal">More Details</button></div>';
-            infowindow.setContent(innerHTML);
             infowindow.open(map, marker);
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
@@ -79,7 +83,7 @@ let ViewModel = function() {
         }
     });
     this.toggleModal = function() {
-        console.log("will open modal....");
+        console.log("More Details button clicked");
     }
     this.showModal = ko.observable(false);
 }
