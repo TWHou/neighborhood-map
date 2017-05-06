@@ -8,13 +8,13 @@
 </head>
 <body>
 <div class="container">
-<div id="sidebar">
+<aside id="sidebar">
   <input type="text" data-bind="textInput: filter" placeholder="Search here...">
   <ul data-bind="foreach: filteredMuseums">
     <li data-bind="text: name, click: $parent.handleClick"></li>
   </ul>
-</div>
-<div id="map"></div>
+</aside>
+<main id="map"></main>
 </div>
 <div id="modal" data-bind="visible: showModal, with: currentMuseum">
   <div class="modal-content">
