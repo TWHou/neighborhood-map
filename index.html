@@ -6,7 +6,7 @@
   <title>Museum Mile</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body data-bind="css: {'modal-open': showModal}">
 <div class="container">
 <aside id="sidebar">
   <input type="text" data-bind="textInput: filter" placeholder="Search here...">
@@ -30,7 +30,7 @@
     </div>
     <div data-bind="if: wikiText">
       <p data-bind="text: wikiText"></p>
-      <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Continue Reading on Wikipedia</a>
+      <a href="" data-bind="if: wikiUrl, attr: {href: wikiUrl}" target="_blank">Continue Reading on Wikipedia</a>
     </div>
     <div data-bind="ifnot: wikiText">
       <p data-bind="if: wikiUrl">Read more about <span data-bind="text: name"></span> on <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Wikipedia</a>.</p>

@@ -13,8 +13,9 @@ There are also excerpt and link to Wikipedia article.
 - Open small info window by clicking on either the museum list or marker
 - Open modal with more information by clicking the `More Details` button
 - Error Handling:
-  - If Google Map API failed to load, the modal will open with message
-  - If Wikipedia API failed, the app will not include Wiki resourses.
+  - If Google Map API failed to load, the modal will open with message.
+  - If one (or more) museum details failed to load, an alert box will appear.
+  - If Wikipedia API failed, message will replace the excerpt.
 
 ## Resources
 - [JQuery](http://jquery.com/)

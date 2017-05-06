@@ -1,4 +1,3 @@
-// H
 let placeIds = [
     "ChIJNXfoO9ZewokRokcDxcgROwo",
     "ChIJWT0gUBz2wokRNcAxVUphAAs",
@@ -49,6 +48,7 @@ let ViewModel = function() {
     this.currentMuseum = ko.observable(this.museums()[0]);
 
     // Retrieve details from google maps places library to construct Museum
+    this.errorMessage = ko.observable();
     placeIds.forEach(placeId => {
         let service = new google.maps.places.PlacesService(map);
         service.getDetails({
@@ -65,10 +65,13 @@ let ViewModel = function() {
                         "format": "json",
                         "search": newMuseum.name
                     },
-                    dataType: "jsonp",
+                    dataType: 'jsonp',
                     success: function(result) {
                         newMuseum.wikiText = result[2][0];
                         newMuseum.wikiUrl = result[3][0];
+                    },
+                    error: function(error) {
+                        newMuseum.wikiText = "Something went wrong while retrieving Wiki excerpt and url."
                     }
                 });
 
@@ -78,7 +81,7 @@ let ViewModel = function() {
                 });
                 this.museums.push(newMuseum);
             } else {
-                console.log(status);
+                alert('Encountered Error: ' + status + '\nOne or more museum may be missing from the list.');
             }
         });
     });
@@ -103,7 +106,7 @@ let ViewModel = function() {
     // Make the marker bounce for twice
     this.animate = marker => {
         marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(() => {marker.setAnimation(null)}, 1500);
+        setTimeout(() => {marker.setAnimation(null)}, 1400);
     }
 
     // Filter both the museums and markers
@@ -129,7 +132,6 @@ let ViewModel = function() {
     this.showModal = ko.observable(false);
     this.toggleModal = () => {
         this.showModal(!this.showModal());
-        $('body').toggleClass('modal-open');
     }
 }
 
