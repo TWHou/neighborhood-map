@@ -1,3 +1,4 @@
+// H
 let placeIds = [
     "ChIJNXfoO9ZewokRokcDxcgROwo",
     "ChIJWT0gUBz2wokRNcAxVUphAAs",
@@ -10,6 +11,7 @@ let placeIds = [
     "ChIJb8Jg9pZYwokR-qHGtvSkLzs"
 ];
 
+// Model for each museum
 let Museum = function (data) {
     this.placeId = data.place_id;
     this.name = data.name;
@@ -27,10 +29,14 @@ let Museum = function (data) {
 }
 
 let ViewModel = function() {
+
+    // Create single infoWindow for all markers
     let innerHTML = '<div id="info-window" data-bind="template: { name: \'info-template\', data: currentMuseum }"></div>';
     this.infowindow = new google.maps.InfoWindow({
         content: innerHTML
     });
+
+    // Bind infowindow content to Knockout when it opens the first time
     let infowindowLoaded = false;
     google.maps.event.addListener(this.infowindow, 'domready', () => {
         if (!infowindowLoaded) {
@@ -42,6 +48,7 @@ let ViewModel = function() {
     this.museums = ko.observableArray();
     this.currentMuseum = ko.observable(this.museums()[0]);
 
+    // Retrieve details from google maps places library to construct Museum
     placeIds.forEach(placeId => {
         let service = new google.maps.places.PlacesService(map);
         service.getDetails({
@@ -49,6 +56,8 @@ let ViewModel = function() {
         }, (place, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 let newMuseum = new Museum(place);
+
+                // Retrieve first paragraph and link from Wikipedia
                 $.ajax({
                     url: "https://en.wikipedia.org/w/api.php?",
                     data: {
@@ -62,6 +71,8 @@ let ViewModel = function() {
                         newMuseum.wikiUrl = result[3][0];
                     }
                 });
+
+                // Pass the marker click event to ViewModel
                 newMuseum.marker.addListener('click', () => {
                     this.handleClick(newMuseum);
                 });
@@ -72,12 +83,14 @@ let ViewModel = function() {
         });
     });
 
+    // Handle click event:
+    // set current Museum, open infowindow, and animate marker
     this.handleClick = museum => {
         this.currentMuseum(museum);
         this.openInfo(museum.marker, this.infowindow);
         this.animate(museum.marker);
     }
-
+    // Bind infowindow to marker
     this.openInfo = (marker, infowindow) => {
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
@@ -87,16 +100,18 @@ let ViewModel = function() {
             });
         }
     }
-
+    // Make the marker bounce for twice
     this.animate = marker => {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(() => {marker.setAnimation(null)}, 1500);
     }
 
+    // Filter both the museums and markers
     this.filter = ko.observable("");
     this.filteredMuseums = ko.computed(() => {
         let filter = this.filter().toLowerCase();
         if (!filter) {
+            // Set all markers visible when input field is empty
             this.museums().forEach(museum => {
                 museum.marker.setVisible(true);
             });
@@ -109,15 +124,17 @@ let ViewModel = function() {
             });
         }
     });
+
+    // When modal is open, background blurs
+    this.showModal = ko.observable(false);
     this.toggleModal = () => {
         this.showModal(!this.showModal());
         $('body').toggleClass('modal-open');
     }
-    this.showModal = ko.observable(false);
 }
 
+// Make sure Google Maps API is loaded before ViewModel is constructed
 let map;
-
 let initApp = function() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat:40.7881576, lng:-73.9635527},
@@ -126,6 +143,7 @@ let initApp = function() {
     ko.applyBindings(new ViewModel());
 }
 
+// Load Google Maps API with fallback message
 $.getScript("https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAyWELkBZOJwFHDXT0uv7Xatiw0becAYac&v=3")
 .done(initApp)
 .fail(()=>{
