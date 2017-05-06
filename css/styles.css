@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .modal-open .container {
   filter: blur(20px);
 }
@@ -6,6 +10,7 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  position: fixed;
 }
 
 #map {
@@ -16,18 +21,37 @@
 
 #sidebar {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   order: 1;
   width: 25%;
+  padding: 5px;
+  overflow: scroll;
+}
+
+input {
+  padding: .5rem .75rem;
+  line-height: 1.25;
+  border: 1px solid rgb(0,0,0,0.15);
+  border-radius: .25rem;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  flex-grow: 2;
 }
 
 li {
-  margin: .75rem;
+  padding: .75rem;
+  margin: .25rem;
+  border-radius: .25rem;
+  background-color: #ccc;
+}
+
+.details {
+  float: right;
+  margin-top: .5rem;
 }
 
 #modal {
@@ -43,6 +67,7 @@ li {
 .modal-content {
   max-width: 500px;
   margin: auto;
+  padding: 1rem;
 }
 
 .close {
@@ -57,4 +82,37 @@ li {
   color: #000;
   text-shadow: 0 1px 0 #fff;
   opacity: .5;
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+
+  .container{
+    flex-direction: column;
+  }
+
+  #map {
+    order: 1;
+    height: 70%;
+    width: 100%;
+  }
+
+  #sidebar {
+    order: 2;
+    height: 30%;
+    width: 100%;
+  }
+
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-content: space-between;
+  }
+
+  li {
+    width: 25%;
+    text-align: center;
+    align-self: center;
+    padding: .5rem;
+  }
 }
