@@ -11,6 +11,7 @@ let placeIds = [
 ];
 
 let Museum = function (data) {
+    let self = this;
     this.placeId = data.place_id;
     this.name = data.name;
     this.address = data.formatted_address;
@@ -23,6 +24,13 @@ let Museum = function (data) {
         title: data.name,
         position: data.geometry.location,
         animation: google.maps.Animation.DROP
+    });
+    this.toggleMarkers = ko.computed(function() {
+        if (self.visible()) {
+            self.marker.setMap(map);
+        } else {
+            self.marker.setMap(null);
+        }
     });
 }
 
@@ -93,6 +101,12 @@ let ViewModel = function() {
         let filter = self.filter().toLowerCase();
         if (!filter) {
             return self.museums();
+        } else {
+            return self.museums().filter(function(museum) {
+                let result = museum.name.toLowerCase().indexOf(filter) >= 0;
+                museum.visible(result);
+                return result;
+            });
         }
     });
     this.toggleModal = function() {

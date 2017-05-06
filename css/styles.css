@@ -46,7 +46,6 @@ li {
 }
 
 .close {
-  float: right;
   padding: 0;
   cursor: pointer;
   background: transparent;
