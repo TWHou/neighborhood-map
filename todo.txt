@@ -12,43 +12,44 @@ Visual
     [ ] List display as grid (maybe)
 
 Data
-[ ] Hard code the museums
-    [ ] placeId
-[ ] Retrieve from google
-    [ ] hours
-    [ ] photos
-    [ ] website
-[ ] Retrieve from Wikipedia
-    [ ] first p
-    [ ] url
+[o] Hard code the museums
+    [o] placeId
+[o] Retrieve from google
+    [o] hours
+    [x] photos
+    [o] website
+[o] Retrieve from Wikipedia
+    [o] first p
+    [o] url
 
 Views
-[ ] Sidebar
-    [ ] Search Bar
-    [ ] List of Museums
-[ ] InfoWindow
-    [ ] Name
-    [ ] Hours
-    [ ] More Details button
-[ ] More Details
-    [ ] Name
-    [ ] Address
-    [ ] Hours
-    [ ] Wikipedia First P
-    [ ] Wiki Link
-    [ ] Photos
+[o] Sidebar
+    [o] Search Bar
+    [o] List of Museums
+[o] InfoWindow
+    [o] Name
+    [o] Address
+    [o] Website
+    [o] More Details button
+[o] More Details
+    [o] Name
+    [o] Address
+    [o] Website
+    [o] Hours
+    [o] Wikipedia First P
+    [o] Wiki Link
+    [x] Photos
 
 ViewModel
-[ ] markerList
-[ ] initMap
-    [ ] get place details
-    [ ] populate data
-    [ ] setup map
-    [ ] create markers
-[ ] museumList (observableArray)
-[ ] currentMuseum (observable)
-[ ] filterMuseums
-    [ ] filterMarkers
-[ ] populateInfoWindow
-[ ] showModal
-[ ] hideModal
+[x] markerList
+[o] initMap
+    [o] get place details
+    [o] populate data
+    [o] setup map
+    [o] create markers
+[o] museumList (observableArray)
+[o] currentMuseum (observable)
+[o] filterMuseums
+    [O] filterMarkers
+[o] populateInfoWindow
+[o] toggleModal

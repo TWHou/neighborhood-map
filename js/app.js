@@ -16,7 +16,7 @@ let Museum = function (data) {
     this.name = data.name;
     this.address = data.formatted_address;
     this.hours = data.opening_hours ? data.opening_hours.weekday_text : "";
-    this.visible = ko.observable(true);
+    this.url = data.website;
     this.wikiText = "";
     this.wikiUrl = "";
     this.marker = new google.maps.Marker({
@@ -24,13 +24,6 @@ let Museum = function (data) {
         title: data.name,
         position: data.geometry.location,
         animation: google.maps.Animation.DROP
-    });
-    this.toggleMarkers = ko.computed(function() {
-        if (self.visible()) {
-            self.marker.setMap(map);
-        } else {
-            self.marker.setMap(null);
-        }
     });
 }
 
@@ -100,11 +93,14 @@ let ViewModel = function() {
     this.filteredMuseums = ko.computed(function() {
         let filter = self.filter().toLowerCase();
         if (!filter) {
+            self.museums().forEach(function(museum){
+                museum.marker.setVisible(true);
+            });
             return self.museums();
         } else {
             return self.museums().filter(function(museum) {
                 let result = museum.name.toLowerCase().indexOf(filter) >= 0;
-                museum.visible(result);
+                museum.marker.setVisible(result);
                 return result;
             });
         }
