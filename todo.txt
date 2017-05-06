@@ -3,13 +3,13 @@ Museum Mile
 
 Visual
     Desktop
-    [ ] List on left 1/4 width
-    [ ] Search bar on top
-    [ ] Map on right
+    [o] List on left 1/4 width
+    [o] Search bar on top
+    [o] Map on right
     Mobile
-    [ ] Map on top
-    [ ] Div for search bar and list at bottom
-    [ ] List display as grid (maybe)
+    [o] Map on top
+    [o] Div for search bar and list at bottom
+    [o] List display as grid (maybe)
 
 Data
 [o] Hard code the museums

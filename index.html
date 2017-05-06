@@ -32,9 +32,9 @@
       <p data-bind="text: wikiText"></p>
       <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Continue Reading on Wikipedia</a>
     </div>
-    <p data-bind="ifnot: wikiText">
-      Read more about <span data-bind="text: name"></span> on <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Wikipedia</a>.
-    </p>
+    <div data-bind="ifnot: wikiText">
+      <p data-bind="if: wikiUrl">Read more about <span data-bind="text: name"></span> on <a href="" data-bind="attr: {href: wikiUrl}" target="_blank">Wikipedia</a>.</p>
+    </div>
   </div>
 </div>
 
@@ -48,7 +48,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="js/app.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAyWELkBZOJwFHDXT0uv7Xatiw0becAYac&v=3&callback=initApp"></script>
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAyWELkBZOJwFHDXT0uv7Xatiw0becAYac&v=3&callback=initApp"></script> -->
 
 </body>
 </html>

@@ -39,7 +39,6 @@ input {
 ul {
   list-style: none;
   padding: 0;
-  flex-grow: 2;
 }
 
 li {
@@ -105,7 +104,7 @@ li {
   ul {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: space-between;
   }
 

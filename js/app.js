@@ -118,10 +118,21 @@ let ViewModel = function() {
 
 let map;
 
-var initApp = function() {
+let initApp = function() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat:40.7881576, lng:-73.9635527},
         zoom: 15
     });
     ko.applyBindings(new ViewModel());
 }
+
+$.getScript("https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAyWELkBZOJwFHDXT0uv7Xatiw0becAYac&v=3")
+.done(initApp)
+.fail(()=>{
+    $('body').addClass('modal-open');
+    $('.modal-content').html("<h2>Google Maps API failed.</h2><p>We could not make contact with Google. There will be no map for now.</p>")
+});
+
+
+
+
