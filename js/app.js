@@ -11,7 +11,6 @@ let placeIds = [
 ];
 
 let Museum = function (data) {
-    let self = this;
     this.placeId = data.place_id;
     this.name = data.name;
     this.address = data.formatted_address;
@@ -28,15 +27,14 @@ let Museum = function (data) {
 }
 
 let ViewModel = function() {
-    let self = this;
     let innerHTML = '<div id="info-window" data-bind="template: { name: \'info-template\', data: currentMuseum }"></div>';
     this.infowindow = new google.maps.InfoWindow({
         content: innerHTML
     });
     let infowindowLoaded = false;
-    google.maps.event.addListener(self.infowindow, 'domready', function(){
+    google.maps.event.addListener(this.infowindow, 'domready', () => {
         if (!infowindowLoaded) {
-            ko.applyBindings(self, $('#info-window')[0]);
+            ko.applyBindings(this, $('#info-window')[0]);
             infowindowLoaded = true;
         }
     });
@@ -44,11 +42,11 @@ let ViewModel = function() {
     this.museums = ko.observableArray();
     this.currentMuseum = ko.observable(this.museums()[0]);
 
-    placeIds.forEach(function(placeId) {
+    placeIds.forEach(placeId => {
         let service = new google.maps.places.PlacesService(map);
         service.getDetails({
             placeId: placeId
-        }, function(place, status) {
+        }, (place, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 let newMuseum = new Museum(place);
                 $.ajax({
@@ -64,49 +62,55 @@ let ViewModel = function() {
                         newMuseum.wikiUrl = result[3][0];
                     }
                 });
-                newMuseum.marker.addListener('click', function(){
-                    self.handleClick(newMuseum);
+                newMuseum.marker.addListener('click', () => {
+                    this.handleClick(newMuseum);
                 });
-                self.museums.push(newMuseum);
+                this.museums.push(newMuseum);
             } else {
                 console.log(status);
             }
         });
     });
 
-    this.handleClick = function(museum) {
-        self.currentMuseum(museum);
-        self.openInfo(museum.marker, self.infowindow);
+    this.handleClick = museum => {
+        this.currentMuseum(museum);
+        this.openInfo(museum.marker, this.infowindow);
+        this.animate(museum.marker);
     }
 
-    this.openInfo = function(marker, infowindow) {
+    this.openInfo = (marker, infowindow) => {
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
             infowindow.open(map, marker);
-            infowindow.addListener('closeclick', function() {
+            infowindow.addListener('closeclick', () => {
                 infowindow.marker = null;
             });
         }
     }
 
+    this.animate = marker => {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(() => {marker.setAnimation(null)}, 1500);
+    }
+
     this.filter = ko.observable("");
-    this.filteredMuseums = ko.computed(function() {
-        let filter = self.filter().toLowerCase();
+    this.filteredMuseums = ko.computed(() => {
+        let filter = this.filter().toLowerCase();
         if (!filter) {
-            self.museums().forEach(function(museum){
+            this.museums().forEach(museum => {
                 museum.marker.setVisible(true);
             });
-            return self.museums();
+            return this.museums();
         } else {
-            return self.museums().filter(function(museum) {
+            return this.museums().filter(museum => {
                 let result = museum.name.toLowerCase().indexOf(filter) >= 0;
                 museum.marker.setVisible(result);
                 return result;
             });
         }
     });
-    this.toggleModal = function() {
-        self.showModal(!self.showModal());
+    this.toggleModal = () => {
+        this.showModal(!this.showModal());
         $('body').toggleClass('modal-open');
     }
     this.showModal = ko.observable(false);
