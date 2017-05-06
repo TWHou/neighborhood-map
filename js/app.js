@@ -48,7 +48,6 @@ let ViewModel = function() {
     this.currentMuseum = ko.observable(this.museums()[0]);
 
     // Retrieve details from google maps places library to construct Museum
-    this.errorMessage = ko.observable();
     placeIds.forEach(placeId => {
         let service = new google.maps.places.PlacesService(map);
         service.getDetails({
@@ -90,6 +89,7 @@ let ViewModel = function() {
     // set current Museum, open infowindow, and animate marker
     this.handleClick = museum => {
         this.currentMuseum(museum);
+        map.panTo(museum.marker.getPosition());
         this.openInfo(museum.marker, this.infowindow);
         this.animate(museum.marker);
     }
